@@ -1,0 +1,10 @@
+Script started on Wed 16 Jan 2019 10:39:50 AM EST
+[?1034h(1) thoth $ gcc -o lab1 lab1.c
+(2) thoth $ ls
+jjs231_lab1.tar.gz  lab1  lab1.c  typescript
+(3) thoth $ nano      ./lab1 
+Hello World!
+(4) thoth $ exit
+exit
+
+Script done on Wed 16 Jan 2019 10:40:08 AM EST
