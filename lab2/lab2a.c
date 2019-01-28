@@ -21,7 +21,11 @@
  *     without having to change 9 more lines of code multiple times.
  **/
 void print_size(char* type, int size) {
-    printf("%s\t%d bytes\n", type, size);
+    if(size > 1) {
+    	printf("%s\t%d bytes\n", type, size);
+    } else {
+        printf("%s\t%d byte\n", type, size);
+    }
 }
 
 

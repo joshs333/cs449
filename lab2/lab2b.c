@@ -47,7 +47,7 @@ void print_planet(int planet_id, int user_weight) {
     if(planet_id > planet_count)
         return;
 
-    printf("%s\t%d lbs\n", planets[planet_id], (int) (weight_multiplier[planet_id]*user_weight));
+    printf("%s\t%.0f lbs\n", planets[planet_id], (weight_multiplier[planet_id]*user_weight));
 }
 
 
@@ -55,17 +55,15 @@ int main() {
     int user_weight = 0;
 
     // Input User weight
-    printf("Please enter the weight on earth: ");
+    printf("Please enter the weight on Earth: ");
     scanf("%d", &user_weight);
-    printf("Here is your weight on other planets:\n\n");
+    printf("\nHere is your weight on other planets:\n\n");
 
     // Print user weight for all planets
     int i = -1;
     while(++i < planet_count)
         print_planet(i, user_weight);
 
-    // extra line at end, return
-    printf("\n");   
     return 0;
 }
     
