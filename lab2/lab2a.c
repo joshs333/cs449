@@ -21,7 +21,7 @@
  *     without having to change 9 more lines of code multiple times.
  **/
 void print_size(char* type, int size) {
-    printf("%-12s %d bytes\n", type, size);
+    printf("%s\t%d bytes\n", type, size);
 }
 
 

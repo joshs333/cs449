@@ -47,7 +47,7 @@ void print_planet(int planet_id, int user_weight) {
     if(planet_id > planet_count)
         return;
 
-    printf("%-9s %d lbs\n", planets[planet_id], (int) (weight_multiplier[planet_id]*user_weight));
+    printf("%s\t%d lbs\n", planets[planet_id], (int) (weight_multiplier[planet_id]*user_weight));
 }
 
 
