@@ -180,39 +180,49 @@ int safely_get_int(char* request, int lower_bound, int higher_bound, int* value,
 
 //**************************** Main Program Logic **********************************
 int main(int arg, char** argv) {
-    // Init some vars
-    struct link* list = NULL;
-    int value = 0;
-    int count = 0;
+    char continue_char;
 
     do {
-        if(!safely_get_int("", 0, 0, &value, 3)) {
-            printf("Unable to get valid integer. Exitting.\n");
+        //init some vars
+        struct link* list = NULL;
+        int value = 0;
+        int count = 0;
+
+        do {
+            if(!safely_get_int("", 0, 0, &value, 3)) {
+                printf("Unable to get valid integer. Exitting.\n");
+                return 0;
+            }
+            // could do an infite while and break if == -1
+            // but the do ... while makes the break condition more apparent
+            if(value != -1) {
+                list = append_value(list, value);
+                ++count;
+            }
+        } while(value != -1);
+
+        // save us from stupid stuff if no values
+        if(count == 0) {
+            printf("No entries! Exitting.\n");
             return 0;
         }
-        // could do an infite while and break if == -1
-        // but the do ... while makes the break condition more apparent
-        if(value != -1) {
-            list = append_value(list, value);
-            ++count;
+
+        // iterate through values and get the sum
+        int sum = (*list).value;
+        while(iterate(&list, &value)) {
+            sum += value;
         }
-    } while(value != -1);
 
-    // save us from stupid stuff if no values
-    if(count == 0) {
-        printf("No entries! Exitting.\n");
-        return 0;
-    }
+        // print the average
+        printf("Average is %d\n", sum / count);
 
-    // iterate through values and get the sum
-    int sum = (*list).value;
-    while(iterate(&list, &value)) {
-        sum += value;
-    }
+        // kill the list to prevent a memory leak
+        kill_list(list);
 
-    // print the average
-    printf("Average is %d\n", sum / count);
-
-    // kill the list to prevent a memory leak
-    kill_list(list);
+        if(!safely_get_char("Do you want to enter another set of grade? (y/n): ", &continue_char, 3)) {
+            printf("Failed to get char... Exitting");
+            return 0;
+        }
+    } while(continue_char == 'Y' || continue_char == 'y');
+    return 1;
 }
