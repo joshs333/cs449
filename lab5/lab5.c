@@ -21,6 +21,7 @@ struct link* create_link(int new_value) {
     struct link* value = malloc(sizeof(struct link));
     (*value).value = new_value;
     (*value).next = NULL;
+    return value;
 }
 
 /**
@@ -207,6 +208,8 @@ int main(int arg, char** argv) {
             return 0;
         }
 
+        struct link* start = list;
+
         // iterate through values and get the sum
         int sum = (*list).value;
         while(iterate(&list, &value)) {
@@ -217,7 +220,7 @@ int main(int arg, char** argv) {
         printf("Average is %d\n", sum / count);
 
         // kill the list to prevent a memory leak
-        kill_list(list);
+        kill_list(start);
 
         if(!safely_get_char("Do you want to enter another set of grade? (y/n): ", &continue_char, 3)) {
             printf("Failed to get char... Exitting");
