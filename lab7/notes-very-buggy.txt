@@ -1,11 +1,11 @@
 Potential Error                             Experienced?
 ========================================================
-Illegal Read/Write Errors                    [x]
-Use of unitialized variables                 [x]
-Unitialized variables in system calls        [x]
-Illegal Frees                                [x]
+Illegal Read/Write Errors                    [x] - 1
+Use of unitialized variables                 [x] - 2
+Unitialized variables in system calls        [x] - 1
+Illegal Frees                                [x] - 2
 Inappropriate deallocation function          [ ]
 Overlapping Source and Destination Blocks    [ ]
 Fishy Argument values                        [ ]
-Memory Leak Detection                        [x]
+Memory Leak Detection                        [x] - 1
 

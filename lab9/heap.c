@@ -87,7 +87,7 @@ void *my_malloc3(int size)
     (*block).next = NULL;
   }
   // return pointer to usable memory
-  return block + sizeof(struct Block);
+  return block + 1;
 }
 
 /** @brief Mark the block free by unsetting the occ bit
@@ -102,8 +102,8 @@ void *my_malloc3(int size)
 void my_free(void *data)
 {
     // find the block header
-    struct Block* block = data - sizeof(struct Block);
-    (*block).occ = 0;
+    struct Block* cur = data - sizeof(struct Block);
+    cur->occ = 0;
 }
 
 /** @brief Dump the contents of the heap.
@@ -117,7 +117,7 @@ void my_free(void *data)
 void dump_heap()
 {
   struct Block *cur;
-  printf("brk: %p\n", sbrk(0));
+  // printf("brk: %p\n", sbrk(0));
   printf("head->");
   for(cur = head; cur != NULL; cur = cur->next) {
     printf("[%d:%ld:%d]->", cur->occ, (char*)cur - (char*)head, cur->size);
