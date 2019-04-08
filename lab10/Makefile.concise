@@ -1,0 +1,13 @@
+CC=gcc
+CFLAGS=-I.
+OBJS=main.o tree.o
+DEPS=malloc.h tree.h
+
+makebase: $(OBJS) $(DEPS)
+	$(CC) -o mallocdrv $(OBJS)
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $<
+
+clean:
+	rm -rf *.o mallocdrv

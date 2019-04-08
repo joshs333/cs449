@@ -25,14 +25,14 @@ int main(int argc, char** argv) {
     char filename[40];
     int filename_given = 0;
     int help_printed = 0;
-    
+
     // iterate through arguments
     int i = -1;
     while(i < argc - 1) {
         //increment at beginning.
         ++i;
         if(argv[i][0] == '-') {
-            // --args 
+            // --args
             if(argv[i][1] == '-') {
                 // help
                 if(strcmp("help", argv[i] + 2) == 0) {
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
                 }
                 continue;
             }
-            // -a (gets the filename)  
+            // -a (gets the filename)
             if(argv[i][1] == 'a') {
                 if(argc == i + 2) {
                     filename_given = 1;
@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
     char current[2];
     current[1] = 0;
 
-    // variables to track position    
+    // variables to track position
     int first_line = 1;
     // store the first 4 characters until we get a printable string
     char collected[5];
