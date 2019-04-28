@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define _REENTRANT
+
 #ifdef _REENTRANT
 // 1. Include header file with pthread function declarations
 #include <pthread.h>
@@ -35,8 +35,8 @@ int main()
   pthread_t thread_1;
   pthread_t thread_2;
   // 2. Create two threads using pthread_create() using above variables
-  int return_1 = pthread_create(&thread_1, NULL, &foo, NULL);
-  int return_2 = pthread_create(&thread_2, NULL, &foo, NULL);
+  pthread_create(&thread_1, NULL, &foo, NULL);
+  pthread_create(&thread_2, NULL, &foo, NULL);
   // 3. Wait for the two threads to finish before returning using pthread_join()
   pthread_join(thread_1, NULL);
   pthread_join(thread_2, NULL);

@@ -90,7 +90,6 @@ int safely_get_yn(char* request, char* value, int retries) {
     do {
         int ch;
         // get a valid value
-        char buffer[2];
         printf("%s", request);
         fgets(value, 2, stdin);
         if(*value == 'y' || *value == 'n' || *value == 'Y' || *value == 'N') {
@@ -156,8 +155,6 @@ static int Armour_Class[] = {
     18 // Plate
 };
 
-// length of longest armour string
-static int Armour_String_Length = 15;
 //parallel indices to armour choices giving printable string
 static char* Armour_String[] = {
     "cloth",
@@ -296,6 +293,7 @@ int generate_player(struct Entity* player, char* name) {
     printf("\nPlayer setting complete:\n");
     print_entity(player);
     printf("\n");
+    return 1;
 }
 
 void generate_orc(struct Entity* player, int max_level) {
@@ -418,11 +416,11 @@ void command_fight(struct GameState* game, int opponent) {
             char ask_string[100];
             sprintf(ask_string, "Get %s's %s, exchanging %s's current armour %s (y/n)? ", game->entities[opponent].name, Armour_String[game->entities[opponent].armour], game->user.name, Armour_String[game->user.armour]);
             char yn_char;
-            if(safely_get_yn(ask_string, &yn_char, 3) && yn_char == 'Y' || yn_char == 'y') {
+            if(safely_get_yn(ask_string, &yn_char, 3) && (yn_char == 'Y' || yn_char == 'y')) {
                 game->user.armour = game->entities[opponent].armour;
             }
             sprintf(ask_string, "Get %s's %s, exchanging %s's current weapon %s (y/n)? ", game->entities[opponent].name, Weapon_String[game->entities[opponent].weapon], game->user.name, Weapon_String[game->user.weapon]);
-            if(safely_get_yn(ask_string, &yn_char, 3) && yn_char == 'Y' || yn_char == 'y') {
+            if(safely_get_yn(ask_string, &yn_char, 3) && (yn_char == 'Y' || yn_char == 'y')) {
                 game->user.weapon = game->entities[opponent].weapon;
             }
             /* Level Up User */
@@ -558,6 +556,8 @@ void help() { }
 void handle_signal(int sig) {
     if(sig == SIGTERM || sig == SIGINT) {
         write_game_state();
+        printf("\n");
+        exit(0);
     } else if(sig == SIGRTMIN) {
         printf("\nEARTH QUAKE!!!\n\n");
         int i = 0;
@@ -606,7 +606,7 @@ int main(int argc, char** argv) {
     if(save_file_descriptor >= 0) {
         char request_string[] = "Found save file. Continue where you left off (y/n)? ";
         char yn_char;
-        if(safely_get_yn(request_string, &yn_char, 3) && yn_char == 'Y' || yn_char == 'y') {
+        if(safely_get_yn(request_string, &yn_char, 3) && (yn_char == 'Y' || yn_char == 'y')) {
             load_game_state();
             loaded = 1;
         }
@@ -628,7 +628,6 @@ int main(int argc, char** argv) {
     signal(SIGINT, handle_signal);
     signal(SIGTERM, handle_signal);
     signal(SIGRTMIN, handle_signal);
-    handle_signal(SIGRTMIN);
 
     while(loop(&game));
     write_game_state();
